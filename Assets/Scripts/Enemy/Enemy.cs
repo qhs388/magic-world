@@ -6,20 +6,18 @@ public abstract class Enemy : MonoBehaviour
 {
     public int health;
     public int damage;
-
-    private Color originaColor;//最开始的颜色
-
     public float flashTime;//受伤的闪烁时间
-
     public GameObject bloodEffect;//血液特效
 
     private SpriteRenderer sr;
-   
+    private Color originaColor;//最开始的颜色
 
+    private PlayerHealth playerHealth;
 
     // Start is called before the first frame update
     public void Start()
     {
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         sr = GetComponent<SpriteRenderer>();
         originaColor = sr.color;
     }
@@ -39,6 +37,7 @@ public abstract class Enemy : MonoBehaviour
         health -= PlayerDamage;
 
         Instantiate(bloodEffect, transform.position, Quaternion.identity);//生成血液特效
+        GameController.camShake.Shake();
     }
 
     void FlashColor(float time)
@@ -51,5 +50,21 @@ public abstract class Enemy : MonoBehaviour
     void ResetColor()
     {
         sr.color = originaColor;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        print(collision.GetType().ToString());
+
+        if (collision.gameObject.CompareTag("Player") && collision.GetType().ToString() == "UnityEngine.CapsuleCollider2D")//判断是不是碰撞到了主角(Player)
+        {
+            print("dasdsadsadsa");
+            if (playerHealth != null)
+            {
+                playerHealth.DamagePlayer(damage);
+            }
+            
+        }
     }
 }
