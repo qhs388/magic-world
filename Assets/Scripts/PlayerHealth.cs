@@ -5,15 +5,20 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public int health;
-    private Renderer myRenderer;
+    public int Blinks;//受伤闪烁的次数
+    public float time;//受伤闪烁的时间
+    public float dieTime;//死亡后多久删除主角
 
-    public int Blinks;
-    public float time;
+    private Renderer myRenderer;
+    private Animator anim;
+
+   
 
     // Start is called before the first frame update
     void Start()
     {
         myRenderer = GetComponent<Renderer>();
+        anim = GetComponent<Animator>();
     }
 
    
@@ -30,9 +35,15 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            anim.SetTrigger("Die");
+            Invoke("KillPlayer", dieTime);
         }
-        BlinkPlayer
+        BlinkPlayer(Blinks, time);
+    }
+
+    void KillPlayer()
+    {
+        Destroy(gameObject);
     }
 
     void BlinkPlayer(int numBlinks,float seconds)
