@@ -17,6 +17,9 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        HealthBar.healthMax = health;
+        HealthBar.healthCurrent = health;
+
         myRenderer = GetComponent<Renderer>();
         anim = GetComponent<Animator>();
     }
@@ -32,7 +35,11 @@ public class PlayerHealth : MonoBehaviour
     public void DamagePlayer(int damage)
     {
         health -= damage;
-
+        HealthBar.healthCurrent = health;
+        if (health<0)
+        {
+            health = 0;
+        }
         if (health <= 0)
         {
             anim.SetTrigger("Die");

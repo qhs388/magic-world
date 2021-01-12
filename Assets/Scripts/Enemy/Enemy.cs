@@ -52,12 +52,12 @@ public abstract class Enemy : MonoBehaviour
         sr.color = originaColor;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
 
-        print(collision.GetType().ToString());
+        print(other.GetType().ToString());
 
-        if (collision.gameObject.CompareTag("Player") && collision.GetType().ToString() == "UnityEngine.CapsuleCollider2D")//判断是不是碰撞到了主角(Player)
+        if (other.gameObject.CompareTag("Player") && other.GetType().ToString() == "UnityEngine.CapsuleCollider2D")//判断是不是碰撞到了主角(Player)
         {
             print("dasdsadsadsa");
             if (playerHealth != null)
