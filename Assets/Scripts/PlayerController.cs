@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     public float runSpeed;
     public float jumpSpeed;
     public float doubleJumpSpeed;
+    public float restoreTime;//下落恢复的时间
+
+    public float climbSpeed;//爬梯子的速度
 
     private Rigidbody2D myRigidbody;
     private Animator myAnim;
@@ -16,29 +19,64 @@ public class PlayerController : MonoBehaviour
 
     private bool isGround;
     private bool canDoubleJump;
+    private bool isOneWayPlatform;
+
+    private bool isLadder;//判断是不是梯子
+    private bool isClimbing;//判断是不是正在爬梯子
+
+    private bool isJumping;//是不是在跳跃
+    private bool isFalling;//是不是掉落
+
+    private bool isDoubleJumping;//是不是在二段跳跃
+    private bool isDoubleFalling;//是不是二段掉落
+
+    private float playerGravity;//人物的重力
 
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myFeet = GetComponent<BoxCollider2D>();
+        playerGravity = myRigidbody.gravityScale;//获取当前的重力
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        Run();
-        Flip();
-        Jump();
-        CheckGround();
-        SwitchAnimation();
-        //Attack();
+
+        if (GameController.isGameAlive)
+        {
+            Run();
+            Flip();
+            Jump();
+            Climb();
+
+            CheckAirStatus();//检测是不是在空中
+
+            CheckGround();
+            SwitchAnimation();
+            OneWayPlatformChek();
+            CheckLadder();
+            //Attack();
+        }
+
+
     }
 
     void CheckGround()
     {
-        isGround = myFeet.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        isGround = myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
+                   myFeet.IsTouchingLayers(LayerMask.GetMask("MoveingPlatform"))||
+                   myFeet.IsTouchingLayers(LayerMask.GetMask("OneWayPlatform"));
+
+
+        isOneWayPlatform = myFeet.IsTouchingLayers(LayerMask.GetMask("OneWayPlatform"));
+    }
+
+    void CheckLadder()
+    {
+        isLadder = myFeet.IsTouchingLayers(LayerMask.GetMask("Ladder"));
     }
 
     void Flip()//奔跑的时候左右翻转
@@ -101,6 +139,45 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    void Climb()//爬梯子功能
+    {
+        
+        if (isLadder)//判断是不是已经跟梯子接触了
+        {
+            
+            float moveY = Input.GetAxis("Vertical");
+          
+            if (moveY > 0.5f || moveY < -0.5f)
+            {
+                myAnim.SetBool("Climbing", true);//播放爬梯子的动画
+                myRigidbody.gravityScale = 0.0f;//人物重力设置为0
+                myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, moveY * climbSpeed);
+            }
+            else 
+            {
+
+               
+                if (isJumping || isFalling || isDoubleJumping || isDoubleFalling)//判断如果是路过并没有爬梯子
+                {
+                    myAnim.SetBool("Climbing", false);//就不播放动画
+
+                }
+                else
+                {
+                    myAnim.SetBool("Climbing", false);//就不播放动画
+                    myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, 0.0f);
+                }
+            }
+        }
+        else{//如果不在梯子
+            myAnim.SetBool("Climbing", false);//就不播放动画
+            myRigidbody.gravityScale = playerGravity;//人物重力设置为0
+        }
+
+
+    }
+
     //void Attack()//普通攻击
     //{
     //    print(Input.GetButtonDown("Attack"));
@@ -140,6 +217,39 @@ public class PlayerController : MonoBehaviour
             myAnim.SetBool("DoubleFall", false);
             myAnim.SetBool("Idle", true);
         }
+    }
+
+    void OneWayPlatformChek()
+    {
+        if (isGround && gameObject.layer != LayerMask.NameToLayer("Player"))
+        {
+            gameObject.layer = LayerMask.NameToLayer("Player");
+        }
+
+        float moveY = Input.GetAxis("Vertical");
+        if (isOneWayPlatform && moveY < -0.1f)
+        {
+            gameObject.layer = LayerMask.NameToLayer("OneWayPlatform");
+            Invoke("RestorePlayerLayer", restoreTime);
+        }
+    }
+
+    void RestorePlayerLayer()
+    {
+        if (!isGround && gameObject.layer != LayerMask.NameToLayer("Player"))
+        {
+            gameObject.layer = LayerMask.NameToLayer("Player");
+        }
+    }
+
+    void CheckAirStatus() { //检测是不是在空中
+
+        isJumping = myAnim.GetBool("Jump");
+        isFalling = myAnim.GetBool("Fall");
+        isDoubleJumping = myAnim.GetBool("DoubleJump");
+        isDoubleFalling = myAnim.GetBool("DoubleFall");
+        isClimbing = myAnim.GetBool("Climbing");
+
     }
 
 }

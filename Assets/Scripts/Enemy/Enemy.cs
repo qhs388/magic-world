@@ -37,7 +37,9 @@ public abstract class Enemy : MonoBehaviour
         health -= PlayerDamage;
 
         Instantiate(bloodEffect, transform.position, Quaternion.identity);//生成血液特效
-        GameController.camShake.Shake();
+
+
+       // GameController.camShake.Shake();
     }
 
     void FlashColor(float time)
@@ -52,19 +54,18 @@ public abstract class Enemy : MonoBehaviour
         sr.color = originaColor;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+
+     void OnCollisionEnter2D(Collision2D other)
     {
-
-        print(other.GetType().ToString());
-
-        if (other.gameObject.CompareTag("Player") && other.GetType().ToString() == "UnityEngine.CapsuleCollider2D")//判断是不是碰撞到了主角(Player)
+        if (other.gameObject.name== "Player")//判断是不是碰撞到了主角(Player)
         {
-            print("dasdsadsadsa");
             if (playerHealth != null)
             {
                 playerHealth.DamagePlayer(damage);
             }
-            
+
         }
     }
+
+    
 }

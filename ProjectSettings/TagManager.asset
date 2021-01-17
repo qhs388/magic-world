@@ -20,10 +20,10 @@ TagManager:
   - Enemy
   - BackGround1
   - BackGround2
-  - 
-  - 
-  - 
-  - 
+  - Spike
+  - MoveingPlatform
+  - OneWayPlatform
+  - Ladder
   - 
   - 
   - 
@@ -48,6 +48,9 @@ TagManager:
     locked: 0
   - name: ForeGround
     uniqueID: 1278436249
+    locked: 0
+  - name: Ladder
+    uniqueID: 43057529
     locked: 0
   - name: Enemy
     uniqueID: 1440564841
