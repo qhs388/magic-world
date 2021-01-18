@@ -8,6 +8,7 @@ public abstract class Enemy : MonoBehaviour
     public int damage;
     public float flashTime;//受伤的闪烁时间
     public GameObject bloodEffect;//血液特效
+    public GameObject dropCoin;//掉落的金币
 
     private SpriteRenderer sr;
     private Color originaColor;//最开始的颜色
@@ -27,6 +28,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (health <= 0)
         {
+            Instantiate(dropCoin, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
