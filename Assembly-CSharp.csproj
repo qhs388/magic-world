@@ -67,6 +67,7 @@
     <Compile Include="Assets\AkilliMum\Standard\2dWeatherEffects\D2RainsFastPE.cs" />
     <Compile Include="Assets\AkilliMum\Standard\2dWeatherEffects\D2RainsPE.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyBat.cs" />
+    <Compile Include="Assets\Scripts\Item\CoinItem.cs" />
     <Compile Include="Assets\AkilliMum\Standard\2dWeatherEffects\D2SnowsSprite.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Tilemap\Tiles\Animated Tile\Scripts\AnimatedTile.cs" />
@@ -86,9 +87,9 @@
     <Compile Include="Assets\AkilliMum\Standard\2dWeatherEffects\D2FogsNoiseTexSprite.cs" />
     <Compile Include="Assets\Scripts\ScreenFlash.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Item\CoinUI.cs" />
-    <Compile Include="Assets\Scripts\Item\CoinItem.cs" />
+    <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\Item\Sign.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\AkilliMum\Standard\2dWeatherEffects\D2Fogs.shader" />
