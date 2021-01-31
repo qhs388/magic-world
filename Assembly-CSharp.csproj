@@ -87,10 +87,14 @@
     <Compile Include="Assets\Tilemap\Tiles\Terrain Tile\Scripts\TerrainTile.cs" />
     <Compile Include="Assets\AkilliMum\Standard\2dWeatherEffects\D2FogsNoiseTexSprite.cs" />
     <Compile Include="Assets\Scripts\ScreenFlash.cs" />
+    <Compile Include="Assets\Scripts\Player\Emoji.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Item\CoinUI.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
-    <Compile Include="Assets\Scripts\Player\Emoji.cs" />
+    <Compile Include="Assets\Scripts\MeshRendererSortingEditor.cs" />
+    <Compile Include="Assets\Scripts\FloatPointBase.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Tool\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\AkilliMum\Standard\2dWeatherEffects\D2Fogs.shader" />

@@ -10,6 +10,8 @@ public abstract class Enemy : MonoBehaviour
     public GameObject bloodEffect;//血液特效
     public GameObject dropCoin;//掉落的金币
 
+    public GameObject floatPoint;//伤害值的显示
+
     private SpriteRenderer sr;
     private Color originaColor;//最开始的颜色
 
@@ -35,6 +37,10 @@ public abstract class Enemy : MonoBehaviour
 
     public void TakeDamage(int PlayerDamage)
     {
+
+        GameObject gb = Instantiate(floatPoint, transform.position, Quaternion.identity) as GameObject;
+
+        gb.transform.GetChild(0).GetComponent<TextMesh>().text = damage.ToString();
         FlashColor(flashTime);
         health -= PlayerDamage;
 

@@ -117,7 +117,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -211,6 +211,7 @@ MonoBehaviour:
   flashTime: 0.2
   bloodEffect: {fileID: 5001331493018672864, guid: 827b03a1c03b01f4f8c7bd5c0e1bca6e, type: 3}
   dropCoin: {fileID: 3261367622262881469, guid: 2007685704c6bf8489ae7e03f246d030, type: 3}
+  floatPoint: {fileID: 8352420167098330911, guid: ae70703b5794f2447b2c6f04dfbcbfa7, type: 3}
   speed: 2
   startWaitTime: 0.2
   movePos: {fileID: 2392602407880709911}

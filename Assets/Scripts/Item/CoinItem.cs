@@ -22,8 +22,11 @@ public class CoinItem : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && other.GetType().ToString() == "UnityEngine.CapsuleCollider2D")//捡金币
         {
+            SoundManager.PlayPickCoinClip();//播放捡金币的音效
             CoinUI.currentCoinQuantity += 1;
             Destroy(gameObject);
+
+
         }
     }
 }

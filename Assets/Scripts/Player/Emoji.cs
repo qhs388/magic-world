@@ -27,17 +27,25 @@ public class Emoji : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+          
             if (showBox)
             {
                 DestroyEmoji();
             }
 
+            showBox = true;
+
+
+
             child = Instantiate(emoji);
 
             child.transform.parent = transform;
 
-            showBox = true;
+
+           
             Invoke("DestroyEmoji", time);
+            
+           
         }
         
         if (showBox==true)
@@ -49,7 +57,9 @@ public class Emoji : MonoBehaviour
 
     void DestroyEmoji()
     {
+        CancelInvoke("DestroyEmoji");
         Destroy(child);
+        showBox = false;
     }
 
 
