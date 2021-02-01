@@ -26,7 +26,7 @@ TagManager:
   - Ladder
   - Item
   - TriggerBox
-  - 
+  - Weapon
   - 
   - 
   - 
@@ -57,6 +57,9 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 1440564841
+    locked: 0
+  - name: Weapon
+    uniqueID: 4213210523
     locked: 0
   - name: Player
     uniqueID: 2234632347
